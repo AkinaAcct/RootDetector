@@ -31,7 +31,7 @@ check_apatch() {
 }
 
 print_result() {
-    printf "${B}Below are the results:${RE}"
+    printf "${B}Below are the results:${RE}\n"
     cat <<-EOF
     MAGISK=true
     MAGISKMANAGER=true
