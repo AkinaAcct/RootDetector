@@ -7,6 +7,8 @@ B="\033[40;34m" # BLUE
 RE="\033[0m"    # RESET
 
 check_magisk() {
+    MAGISK=false
+    MAGISKMANAGER=false
     RESU="$(pm list packages --show-versioncode 2>&1 </dev/null | cat | grep -i magisk)"
     if [[ -n $RESU ]]; then
         MAGISKMANAGER=true
@@ -33,8 +35,8 @@ check_apatch() {
 print_result() {
     printf "${B}Below are the results:${RE}\n"
     cat <<-EOF
-    MAGISK=true
-    MAGISKMANAGER=true
+    MAGISK=${MAGISK}
+    MAGISKMANAGER=${MAGISKMANAGER}
 EOF
 }
 for i in magisk ksu apatch; do
