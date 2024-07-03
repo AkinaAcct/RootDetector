@@ -9,7 +9,7 @@ RE="\033[0m"    # RESET
 check_magisk() {
     MAGISK=false
     MAGISKMANAGER=false
-    RESU="$(pm list packages --show-versioncode 2>&1 </dev/null | cat | grep -i magisk)"
+    local RESU="$(pm list packages --show-versioncode 2>&1 </dev/null | cat | grep -i magisk)"
     if [[ -n $RESU ]]; then
         MAGISKMANAGER=true
     fi
@@ -25,11 +25,19 @@ check_magisk() {
     fi
 }
 check_ksu() {
-    printf "${B}Developing...${RE}\n"
+    KSUMANAGER=false
+    local RESU="$(pm list packages --show-versioncode 2>&1 </dev/null | cat | grep -i kernelsu)"
+    if [[ -n "${RESU}" ]]; then
+        KSUMANAGER=true
+    fi
 }
 
 check_apatch() {
-    printf "${B}Developing...${RE}\n"
+    APATCHMANAGER=false
+    local RESU="$(pm list packages --show-versioncode 2>&1 </dev/null | cat | grep -i apatch)"
+    if [[ -n "${RESU}" ]]; then
+        APATCHMANAGER=true
+    fi
 }
 
 print_result() {
@@ -37,6 +45,12 @@ print_result() {
     cat <<-EOF
     MAGISK=${MAGISK}
     MAGISKMANAGER=${MAGISKMANAGER}
+
+    KSUMANAGER=${KSUMANAGER}
+    KSU=${KSU}
+
+    APATCHMANAGER=${APATCHMANAGER}
+    APATCH=${APATCH}
 EOF
 }
 for i in magisk ksu apatch; do
